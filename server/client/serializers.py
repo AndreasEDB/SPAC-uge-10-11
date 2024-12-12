@@ -5,4 +5,5 @@ from rest_framework import serializers
 class FileSerializer(serializers.ModelSerializer):
     class Meta:
         model = File
-        fields = '__all__'
+        fields = ['file_name', 'file_size', 'last_modified', 'is_dir']
+        

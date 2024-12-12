@@ -34,11 +34,24 @@ class FTPConnector(BaseConnector):
         return self.conn.getwelcome()
     
     def list_dir(self, path: str) -> List[File]:
+        def file_name(line: str) -> str:
+            return line.split()[-1]
+        
+        def is_dir(line: str) -> bool:
+            return line.startswith('d')
+        
+        def file_size(line: str) -> int:
+            return line.split()[4]
+        
+
+        
+
         with self.connect() as connector:
             connector.cwd(path)
             files = []
             dirs = []
-            connector.dir(lambda line: dirs.append(File(file_name=line.split()[-1], is_dir=True)) if line.startswith('d') else files.append(File(file_name=line.split()[-1], is_dir=False)))
+            # connector.dir(lambda line: print(line.split()))
+            connector.dir(lambda line: dirs.append(File(file_name=file_name(line), is_dir=is_dir(line), file_size=file_size(line))))
             return [*dirs, *files]
         
 
