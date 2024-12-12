@@ -8,8 +8,12 @@ django = "*"
 django-rest-framework = "*"
 mysqlclient = "*"
 django-cors-headers = "*"
+djangorestframework-simplejwt = "*"
+pysftp = "*"
 
 [dev-packages]
+django-stubs = "*"
+djangorestframework-stubs = "*"
 
 [requires]
 python_version = "3.12"

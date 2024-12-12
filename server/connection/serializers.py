@@ -15,6 +15,32 @@ class ProtocolSerializer(serializers.ModelSerializer):
 
 
 class ConnectionSerializer(serializers.ModelSerializer):
+    protocol = serializers.SlugRelatedField(
+        queryset=Protocol.objects.all(),
+        slug_field='name'  # Assuming 'name' is the field used to identify the protocol
+    )
+
+    category = serializers.SlugRelatedField(
+        queryset=Category.objects.all(),
+        slug_field='id',  # Assuming 'name' is the field used to identify the category
+        many=True
+    )
+
+    # owner = serializers.ReadOnlyField()
+
     class Meta:
         model = Connection
-        fields = '__all__'
+        fields = ['id', 'name', 'host', 'port', 'username', 'password', 'protocol', 'category']
+
+
+class TestConnectionSerializer(serializers.ModelSerializer):
+    
+    protocol = serializers.SlugRelatedField(
+        queryset=Protocol.objects.all(),
+        slug_field='name'  # Assuming 'name' is the field used to identify the protocol
+    )
+    
+    class Meta:
+        model = Connection
+        fields = ['host', 'username', 'password', 'protocol']
+        

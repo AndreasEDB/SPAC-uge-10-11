@@ -1,0 +1,189 @@
+{
+  "info": {
+    "name": "SAFTp API",
+    "description": "Collection of API endpoints for the project",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Get All Categories",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer <your_token>",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{SAFTp}}/connection/category/",
+          "host": ["{{SAFTp}}"],
+          "path": ["connection", "category"]
+        }
+      }
+    },
+    {
+      "name": "Create a Category",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer <your_token>",
+            "type": "text"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"name\": \"Category Name\",\n    \"description\": \"Category Description\"\n}"
+        },
+        "url": {
+          "raw": "{{SAFTp}}/connection/category/",
+          "host": ["{{SAFTp}}"],
+          "path": ["connection", "category"]
+        }
+      }
+    },
+    {
+      "name": "Get All Protocols",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer <your_token>",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{SAFTp}}/connection/protocol/",
+          "host": ["{{SAFTp}}"],
+          "path": ["connection", "protocol"]
+        }
+      }
+    },
+    {
+      "name": "Get All Connections",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer <your_token>",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{SAFTp}}/connection/",
+          "host": ["{{SAFTp}}"],
+          "path": ["connection"]
+        }
+      }
+    },
+    {
+      "name": "Create a Connection",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer <your_token>",
+            "type": "text"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"name\": \"Connection Name\",\n    \"host\": \"example.com\",\n    \"port\": 21,\n    \"username\": \"user\",\n    \"password\": \"password\",\n    \"protocol\": \"FTP\",\n    \"category\": [1, 2]\n}"
+        },
+        "url": {
+          "raw": "{{SAFTp}}/connection/",
+          "host": ["{{SAFTp}}"],
+          "path": ["connection"]
+        }
+      }
+    },
+    {
+      "name": "Update a Connection",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer <your_token>",
+            "type": "text"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"name\": \"Updated Connection Name\",\n    \"host\": \"example.com\",\n    \"port\": 21,\n    \"username\": \"user\",\n    \"password\": \"password\",\n    \"protocol\": \"FTP\",\n    \"category\": [1, 2]\n}"
+        },
+        "url": {
+          "raw": "{{SAFTp}}/connection/{id}/",
+          "host": ["{{SAFTp}}"],
+          "path": ["connection", "{id}"]
+        }
+      }
+    },
+    {
+      "name": "Delete a Connection",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer <your_token>",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{SAFTp}}/connection/{id}/",
+          "host": ["{{SAFTp}}"],
+          "path": ["connection", "{id}"]
+        }
+      }
+    },
+    {
+      "name": "Test a Connection",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer <your_token>",
+            "type": "text"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"host\": \"example.com\",\n    \"username\": \"user\",\n    \"password\": \"password\",\n    \"protocol\": \"FTP\"\n}"
+        },
+        "url": {
+          "raw": "{{SAFTp}}/connection/test/",
+          "host": ["{{SAFTp}}"],
+          "path": ["connection", "test"]
+        }
+      }
+    }
+  ]
+}
