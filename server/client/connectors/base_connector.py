@@ -1,7 +1,7 @@
 
 from abc import ABC, abstractmethod
 from ftplib import FTP
-from typing import List
+from typing import List, Union
 
 import pysftp
 from connection.models import Connection as Connection
@@ -10,7 +10,7 @@ from client.models import File
 
 class BaseConnector(ABC):
     connection: Connection | None = None
-    conn: FTP | pysftp.Connection
+    conn: Union[FTP | pysftp.Connection]
     def __init__(self, connection: Connection):
         self.connection = connection
     
@@ -19,7 +19,7 @@ class BaseConnector(ABC):
         pass
 
     @abstractmethod
-    def connect(self) -> None:
+    def connect(self) -> Union[FTP | pysftp.Connection]:
         pass
     
     @abstractmethod

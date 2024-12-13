@@ -124,7 +124,8 @@ AUTH_USER_MODEL = 'user_auth.AuthUser'
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+## GMT+1
+TIME_ZONE = 'Europe/Berlin'
 
 USE_I18N = True
 
