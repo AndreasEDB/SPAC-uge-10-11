@@ -2,6 +2,7 @@ from typing import List
 from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
 from connection.models import Connection
 
 from client.connectors.get_connector import get_connector
@@ -10,6 +11,7 @@ from .serializers import FileSerializer
 
 # Create your views here.
 class DirectoryView(APIView):
+    permission_classes = [IsAuthenticated]
     def get(self, request):
         connector = get_connector(Connection.objects.get(id=int(request.query_params['connection'])))
         path = request.query_params.get('path')

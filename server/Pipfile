@@ -10,6 +10,7 @@ mysqlclient = "*"
 django-cors-headers = "*"
 djangorestframework-simplejwt = "*"
 pysftp = "*"
+python-dotenv = "*"
 
 [dev-packages]
 django-stubs = "*"

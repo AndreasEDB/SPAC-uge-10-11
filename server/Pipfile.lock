@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "19d3dc215c496cd8e593d67c13bdf98689f428edf72dda9bce14ce694ac30ac2"
+            "sha256": "52f414e63a444e0f170c4de00df903c6d0bf6b0f6926d489caedc62f9604073b"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -265,6 +265,15 @@
             "index": "pypi",
             "version": "==0.2.9"
         },
+        "python-dotenv": {
+            "hashes": [
+                "sha256:e324ee90a023d808f1959c46bcbc04446a10ced277783dc6ee09987c37ec10ca",
+                "sha256:f7b63ef50f1b690dddf550d03497b66d609393b40b564ed0d674909a68ebf16a"
+            ],
+            "index": "pypi",
+            "markers": "python_version >= '3.8'",
+            "version": "==1.0.1"
+        },
         "sqlparse": {
             "hashes": [
                 "sha256:09f67787f56a0b16ecdbde1bfc7f5d9c3371ca683cfeaa8e6ff60b4807ec9272",
@@ -285,11 +294,11 @@
         },
         "certifi": {
             "hashes": [
-                "sha256:922820b53db7a7257ffbda3f597266d435245903d80737e34f8a45ff3e3230d8",
-                "sha256:bec941d2aa8195e248a60b31ff9f0558284cf01a52591ceda73ea9afffd69fd9"
+                "sha256:1275f7a45be9464efc1173084eaa30f866fe2e47d389406136d332ed4967ec56",
+                "sha256:b650d30f370c2b724812bee08008be0c4163b163ddaec3f2546c1caf65f191db"
             ],
             "markers": "python_version >= '3.6'",
-            "version": "==2024.8.30"
+            "version": "==2024.12.14"
         },
         "charset-normalizer": {
             "hashes": [
@@ -430,12 +439,12 @@
         },
         "djangorestframework-stubs": {
             "hashes": [
-                "sha256:34539871895d66d382b6ae3655d9f95c1de7733cf50bc29097638d367ed3117d",
-                "sha256:79dc9018f5d5fa420f9981eec9f1e820ecbd04719791f144419cdc6c5b8e29bd"
+                "sha256:0e72f1e8507bdb2acd99b304520494ea5d45bccba51a4877140cb65fd461adf0",
+                "sha256:3df129845acac6c1b097bc7e5b360d53e32a02029d60b4f972dfbd3e2508f236"
             ],
             "index": "pypi",
-            "markers": "python_version >= '3.8'",
-            "version": "==3.15.1"
+            "markers": "python_version >= '3.9'",
+            "version": "==3.15.2"
         },
         "idna": {
             "hashes": [

@@ -1,50 +1,88 @@
-# React + TypeScript + Vite
+# Warehouse Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is the frontend application for the Warehouse Management System. It provides a user interface for managing warehouse operations.
 
-Currently, two official plugins are available:
+## Table of Contents
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- [Warehouse Frontend](#warehouse-frontend)
+  - [Table of Contents](#table-of-contents)
+  - [Project Structure](#project-structure)
+  - [Dependencies](#dependencies)
+  - [Installation](#installation)
+  - [Usage](#usage)
 
-## Expanding the ESLint configuration
+## Project Structure
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- .env
+- .gitignore
+- [eslint.config.js](http://_vscodecontentref_/1)
+- [index.html](http://_vscodecontentref_/2)
+- [package.json](http://_vscodecontentref_/3)
+- [postcss.config.js](http://_vscodecontentref_/4)
+- public/
+- [README.md](http://_vscodecontentref_/5)
+- src/
+  - App.css
+  - App.tsx
+  - assets/
+  - components/
+    - buttons/
+    - layout/
+    - modal/
+    - Overlay.tsx
+    - sidebar/
+    - tables/
+  - contexts/
+    - ModalContext.tsx
+    - ProductContext.tsx
+    - SidebarContext.tsx
+  - interfaces/
+    - Button.ts
+    - ButtonProps.ts
+    - ButtonTypes.ts
+    - ModalContextType.ts
+    - ...
+  - main.tsx
+  - pages/
+    - ...
+  - tailwind.css
+  - vite-env.d.ts
+- [tailwind.config.js](http://_vscodecontentref_/6)
+- [tsconfig.app.json](http://_vscodecontentref_/7)
+- [tsconfig.json](http://_vscodecontentref_/8)
+- [tsconfig.node.json](http://_vscodecontentref_/9)
+- [vite.config.ts](http://_vscodecontentref_/10)
 
-- Configure the top-level `parserOptions` property like this:
+## Dependencies
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+This frontend depends on the ProductAttributeController branch of the warehouse-backend. The backend can be cloned from https://github.com/svenniz/spac-warehouse/tree/ProductAttributeController.
+
+## Installation
+
+1. Clone the repository:
+
+```sh
+git clone https://github.com/AndreasEDB/warehouse-frontend.git
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+2. Navigate to the project directory:
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+```sh
+cd warehouse-frontend
 ```
+
+3. Install dependencies:
+
+```sh
+yarn install
+```
+
+## Usage
+
+1. Start the development server:
+
+```sh
+yarn dev
+```
+
+2. Open your browser and navigate to `http://localhost:3000`.
