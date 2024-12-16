@@ -8,6 +8,7 @@ const BaseButton = ({
   className,
   square = false,
   size = "medium",
+  disabled = false,
 }: Button) => {
   let assertedSqaure = false
 
@@ -29,6 +30,7 @@ const BaseButton = ({
       ].join(" ")}
       onClick={onClick}
       type={type}
+      disabled={disabled}
     >
       {text && text}
       {icon && icon({})}

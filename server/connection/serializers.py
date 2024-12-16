@@ -15,7 +15,7 @@ class ProtocolSerializer(serializers.ModelSerializer):
 
 
 class ConnectionSerializer(serializers.ModelSerializer):
-    password = serializers.CharField(write_only=True)
+    password = serializers.CharField(write_only=True, required=False)
     protocol = serializers.SlugRelatedField(
         queryset=Protocol.objects.all(),
         slug_field='name'  # Assuming 'name' is the field used to identify the protocol

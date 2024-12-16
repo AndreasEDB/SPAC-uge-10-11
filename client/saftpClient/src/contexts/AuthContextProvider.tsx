@@ -25,22 +25,27 @@ const AuthContextProvider = ({ children }: { children: ReactNode }) => {
 
     setLoading(true)
 
-    if (credentials) {
-      res = await axios.post(`${VITE_AUTH_URI}/token/`, credentials)
-    } else {
-      res = await axios.post(`${VITE_AUTH_URI}/token/refresh/`, {
-        refresh: refreshToken ?? localStorage.getItem("refresh"),
-      })
-    }
-
-    if (res?.status === 200) {
-      setAuthToken(res.data.access)
-
-      if (res.data.refresh) {
-        setRefreshToken(res.data.refresh)
-        localStorage.setItem("refresh", res.data.refresh)
+    try {
+      if (credentials) {
+        res = await axios.post(`${VITE_AUTH_URI}/token/`, credentials)
+      } else {
+        let refresh = refreshToken ?? localStorage.getItem("refresh")
+        if (refresh) {
+          res = await axios.post(`${VITE_AUTH_URI}/token/refresh/`, {
+            refresh,
+          })
+        }
       }
-    }
+
+      if (res?.status === 200) {
+        setAuthToken(res.data.access)
+
+        if (res.data.refresh) {
+          setRefreshToken(res.data.refresh)
+          localStorage.setItem("refresh", res.data.refresh)
+        }
+      }
+    } catch (e) {}
 
     setLoading(false)
   }
@@ -66,7 +71,7 @@ const AuthContextProvider = ({ children }: { children: ReactNode }) => {
   }, [])
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, loading, login, logout }}>
       {children}
     </AuthContext.Provider>
   )

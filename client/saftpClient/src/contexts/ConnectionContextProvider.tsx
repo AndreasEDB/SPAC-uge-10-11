@@ -23,9 +23,9 @@ const ConnectionContextProvider = ({ children }: { children: ReactNode }) => {
     setConnections(res.data)
   }
 
-  const testConnection = (connection: Connection) => {
-    console.log("testConnection")
-    return true
+  const testConnection = async (connection: Connection): Promise<boolean> => {
+    const res = await axios.post(`${VITE_CONNECTION_URI}/test/`, connection)
+    return res.status === 200
   }
 
   const createConnection = (connection: Connection) => {

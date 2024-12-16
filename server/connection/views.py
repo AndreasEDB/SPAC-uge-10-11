@@ -30,7 +30,7 @@ class ConnectionViewset(ModelViewSet):
     http_method_names = ['get', 'post', 'put', 'delete']
     permission_classes = [permissions.IsAuthenticated]
 
-    def perform_create(self, serializer: ConnectionSerializer):
+    def perform_create(self, serializer):
         if len(serializer.validated_data.get('category')) == 0:
             default_category = Category.objects.get(name='Default')
             serializer.validated_data['category'] = [default_category]

@@ -12,6 +12,7 @@ const ButtonArea = ({ buttons }: { buttons: Button[] }) => {
           onClick={button.onClick}
           type={button.type}
           className={button.className + " flex-1"}
+          disabled={button.disabled}
         />
       ))}
     </section>

@@ -7,6 +7,6 @@ export default interface Button {
   className?: string
   icon?: (props?: IconBaseProps) => JSX.Element
   square?: boolean
-  small?: boolean
   size?: "small" | "medium" | "large"
+  disabled?: boolean
 }

@@ -1,86 +1,149 @@
 import Button from "./Button"
 
-let baseStyle: string = "text-white font-bold px-4 rounded"
+let baseStyle: string = "font-bold px-4 rounded"
 
-const okButton = (onClick?: () => void): Button => {
+const whiteButton = (props: Button): Button => {
   return {
+    text: props.text,
+    onClick: props.onClick ?? (() => {}),
+    type: props.type,
+    disabled: props.disabled,
+    className:
+      baseStyle +
+      " text-slate-900 bg-white border-2 border-slate-900 hover:bg-gray-300",
+  }
+}
+
+const blueButton = (props: Button): Button => {
+  return {
+    text: props.text,
+    onClick: props.onClick ?? (() => {}),
+    type: props.type,
+    disabled: props.disabled,
+    className: baseStyle + " text-white bg-blue-500 hover:bg-blue-700",
+  }
+}
+
+const greenButton = (props: Button): Button => {
+  return {
+    text: props.text,
+    onClick: props.onClick ?? (() => {}),
+    type: props.type,
+    disabled: props.disabled,
+    className: baseStyle + " text-white bg-green-500 hover:bg-green-700",
+  }
+}
+
+const redButton = (props: Button): Button => {
+  return {
+    text: props.text,
+    onClick: props.onClick ?? (() => {}),
+    type: props.type,
+    disabled: props.disabled,
+    className: baseStyle + " text-white bg-red-500 hover:bg-red-700",
+  }
+}
+
+const okButton = (onClick?: () => {}, disabled: boolean = false): Button => {
+  return greenButton({
     text: "Ok",
     onClick: onClick ?? (() => {}),
     type: "button",
-    className: baseStyle + " bg-green-500 hover:bg-green-700",
-  }
+    disabled,
+  })
 }
 
-const cancelButton = (onClick?: () => void): Button => {
-  return {
+const cancelButton = (
+  onClick?: () => {},
+  disabled: boolean = false
+): Button => {
+  return redButton({
     text: "Cancel",
     onClick: onClick ?? (() => {}),
     type: "reset",
-    className: baseStyle + " bg-red-500 hover:bg-red-700",
-  }
+    disabled,
+  })
 }
 
-const yesButton = (onClick?: () => void): Button => {
-  return {
+const yesButton = (onClick?: () => {}, disabled: boolean = false): Button => {
+  return greenButton({
     text: "Yes",
     onClick: onClick ?? (() => {}),
     type: "button",
-    className: baseStyle + " bg-green-500 hover:bg-green-700",
-  }
+    disabled,
+  })
 }
 
-const noButton = (onClick?: () => void): Button => {
-  return {
+const noButton = (onClick?: () => {}, disabled: boolean = false): Button => {
+  return redButton({
     text: "No",
     onClick: onClick ?? (() => {}),
     type: "button",
-    className: baseStyle + " bg-red-500 hover:bg-red-700",
-  }
+    disabled,
+  })
 }
 
-const saveButton = (onClick?: () => void): Button => {
-  return {
+const saveButton = (onClick?: () => {}, disabled: boolean = false): Button => {
+  return blueButton({
     text: "Save",
     onClick: onClick ?? (() => {}),
     type: "submit",
-    className: baseStyle + " bg-blue-500 hover:bg-blue-700",
-  }
+    disabled,
+  })
 }
 
-const createButton = (onClick?: () => void): Button => {
-  return {
+const createButton = (
+  onClick?: () => {},
+  disabled: boolean = false
+): Button => {
+  return blueButton({
     text: "Create",
     onClick: onClick ?? (() => {}),
     type: "submit",
-    className: baseStyle + " bg-blue-500 hover:bg-blue-700",
-  }
+    disabled,
+  })
 }
 
-const loginButton = (onClick?: () => void): Button => {
-  return {
+const loginButton = (onClick?: () => {}, disabled: boolean = false): Button => {
+  return blueButton({
     text: "Log in",
     onClick: onClick ?? (() => {}),
     type: "submit",
-    className: baseStyle + " bg-blue-500 hover:bg-blue-700",
-  }
+    disabled,
+  })
 }
 
-const logoutButton = (onClick?: () => void): Button => {
-  return {
+const logoutButton = (
+  onClick?: () => {},
+  disabled: boolean = false
+): Button => {
+  return blueButton({
     text: "Log out",
     onClick: onClick ?? (() => {}),
     type: "submit",
-    className: baseStyle + " bg-blue-500 hover:bg-blue-700",
-  }
+    disabled,
+  })
 }
 
-const connectButton = (onClick?: () => void): Button => {
-  return {
+const connectButton = (
+  onClick?: () => {},
+  disabled: boolean = false
+): Button => {
+  return blueButton({
     text: "Connect",
     onClick: onClick ?? (() => {}),
     type: "button",
-    className: baseStyle + " bg-blue-500 hover:bg-blue-700",
-  }
+    disabled,
+  })
+}
+
+const testButton = (onClick?: () => {}, disabled: boolean = false): Button => {
+  return whiteButton({
+    text: "Test",
+    onClick: onClick ?? (() => {}),
+    type: "button",
+    disabled,
+  })
 }
 
 const ButtonTypes = {
@@ -93,6 +156,7 @@ const ButtonTypes = {
   Login: loginButton,
   Logout: logoutButton,
   Connect: connectButton,
+  Test: testButton,
 }
 
 export default ButtonTypes

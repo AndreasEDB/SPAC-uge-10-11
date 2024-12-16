@@ -11,7 +11,7 @@ export interface ConnectionContextType {
   files: FileType[]
   getFiles: () => void
   getConnections: () => void
-  testConnection: (connection: Connection) => boolean
+  testConnection: (connection: Connection) => Promise<boolean>
   createConnection: (connection: Connection) => void
   deleteConnection: (connection: Connection) => void
 }

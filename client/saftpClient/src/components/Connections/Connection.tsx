@@ -7,6 +7,9 @@ import { useNavigate } from "react-router-dom"
 import Button from "../../interfaces/Button"
 import { LuPlus } from "react-icons/lu"
 import { IconBaseProps } from "react-icons"
+import { Protocol } from "../../interfaces/Protocol"
+import { SidebarContext } from "../../contexts/SidebarContextProvider"
+import CreateConnection from "../sidebar/sidebarComponents/CreateConnection"
 
 const Connection = ({
   connection,
@@ -14,38 +17,39 @@ const Connection = ({
   connection: ConnectionType | undefined
 }) => {
   const navigate = useNavigate()
+  const { setSidebarComponent } = useContext(SidebarContext)
+
+  const buttons: Button[] = []
+
+  if (connection !== undefined) {
+    buttons.push(ButtonTypes.Connect(() => navigate("/files/" + connection.id)))
+  } else {
+    buttons.push({
+      icon: () => <LuPlus size="5rem" />,
+      type: "button",
+      onClick: () => {
+        setSidebarComponent(<CreateConnection />)
+      },
+      size: "large",
+    } as Button)
+  }
+
   return (
     <>
-      {connection && (
-        <article className="bg-slate-300 shadow-xl p-5 flex justify-evenly align-middle sm:basis-full md:basis-1/2 lg:basis-1/3 xl:basis-1/4">
-          <div>
-            <h3 className="text-xl font-semibold">{connection.name}</h3>
-            <em>{connection.host}</em>
-            <ButtonArea
-              buttons={[
-                ButtonTypes.Connect(() => navigate("/files/" + connection.id)),
-              ]}
-            />
-          </div>
-        </article>
-      )}
-      {connection === undefined && (
-        <article className="bg-slate-400 shadow-xl p-5 flex justify-center align-middle basis-1 md:basis-1/2 lg:basis-1/3 xl:basis-1/4">
-          <div>
-            <h3 className="text-xl font-semibold">Add connection</h3>
-            <ButtonArea
-              buttons={[
-                {
-                  icon: () => <LuPlus size="5rem" />,
-                  type: "button",
-                  onClick: () => {},
-                  size: "large",
-                } as Button,
-              ]}
-            />
-          </div>
-        </article>
-      )}
+      <article className="bg-slate-300 shadow-xl p-5 flex text-center justify-evenly align-middle">
+        <div>
+          <h3 className="text-xl font-semibold">
+            {connection?.name ?? "Add connection"}
+          </h3>
+          {connection !== undefined && (
+            <em>
+              {connection.host}:
+              {connection.port ?? (connection.protocol as Protocol).port}
+            </em>
+          )}
+          <ButtonArea buttons={buttons} />
+        </div>
+      </article>
     </>
   )
 }
