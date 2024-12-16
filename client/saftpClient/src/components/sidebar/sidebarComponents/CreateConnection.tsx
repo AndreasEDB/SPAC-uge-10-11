@@ -1,23 +1,20 @@
 import { useContext, useEffect, useRef, useState } from "react"
 import { SidebarContext } from "../../../contexts/SidebarContextProvider"
-import Button from "../../../interfaces/Button"
 import ButtonTypes from "../../../interfaces/ButtonTypes"
 import ButtonArea from "../../buttons/ButtonArea"
 import { ConnectionContext } from "../../../contexts/ConnectionContextProvider"
 
 const CreateConnection = () => {
-  const { setSidebarTitle } = useContext(SidebarContext)
+  const { setSidebarTitle, closeSidebar } = useContext(SidebarContext)
   const { testConnection } = useContext(ConnectionContext)
   const [passed, setPassed] = useState<boolean>(false)
 
-  const formRef = useRef<HTMLFormElement | undefined>()
+  const formRef = useRef<HTMLFormElement | null>(null)
 
   const handleTest = async () => {
     let form = formRef.current
 
-    let formData = new FormData(form)
-
-    console.log(...formData)
+    let formData = new FormData(form!)
 
     setPassed(
       await testConnection({
@@ -106,7 +103,7 @@ const CreateConnection = () => {
       <ButtonArea
         buttons={[
           passed ? ButtonTypes.Create() : ButtonTypes.Test(handleTest),
-          ButtonTypes.Cancel(),
+          ButtonTypes.Cancel(closeSidebar),
         ]}
       />
     </form>
