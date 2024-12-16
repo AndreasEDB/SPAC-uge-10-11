@@ -38,8 +38,13 @@ class ConnectionViewset(ModelViewSet):
         serializer.save(owner=self.request.user)
 
     def retrieve(self, request, *args, **kwargs):
-        connections = Connection.objects.filter(owner=request.user)
-        connection_serializer = ConnectionSerializer(connections, many=True)
+        if 'pk' in kwargs.keys():
+            connection = Connection.objects.filter(owner=request.user).get(id=kwargs['pk'])
+            connection_serializer = ConnectionSerializer(connection)
+        else:
+            connections = Connection.objects.filter(owner=request.user)
+            connection_serializer = ConnectionSerializer(connections, many=True)
+        
         return Response(connection_serializer.data)
         # return super().retrieve(request, *args, **kwargs)
 

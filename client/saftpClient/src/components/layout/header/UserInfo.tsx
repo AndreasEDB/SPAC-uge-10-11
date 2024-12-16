@@ -7,7 +7,6 @@ const UserInfo = () => {
   const { user, logout } = useContext(AuthContext)
 
   const logoutButton = ButtonTypes.Logout(() => logout())
-  logoutButton.className += " py-1"
 
   if (user)
     return (
@@ -15,7 +14,10 @@ const UserInfo = () => {
         <em>
           {user.first_name} {user.last_name}
         </em>
-        <BaseButton {...logoutButton} />
+        <BaseButton
+          {...logoutButton}
+          size="small"
+        />
       </div>
     )
   else return null

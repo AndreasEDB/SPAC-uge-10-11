@@ -1,8 +1,6 @@
-import Logo from "../components/layout/header/Logo"
-import Login from "../pages/Login"
 import Button from "./Button"
 
-let baseStyle: string = "text-white font-bold py-2 px-4 rounded"
+let baseStyle: string = "text-white font-bold px-4 rounded"
 
 const okButton = (onClick?: () => void): Button => {
   return {
@@ -76,6 +74,15 @@ const logoutButton = (onClick?: () => void): Button => {
   }
 }
 
+const connectButton = (onClick?: () => void): Button => {
+  return {
+    text: "Connect",
+    onClick: onClick ?? (() => {}),
+    type: "button",
+    className: baseStyle + " bg-blue-500 hover:bg-blue-700",
+  }
+}
+
 const ButtonTypes = {
   Ok: okButton,
   Cancel: cancelButton,
@@ -85,6 +92,7 @@ const ButtonTypes = {
   Create: createButton,
   Login: loginButton,
   Logout: logoutButton,
+  Connect: connectButton,
 }
 
 export default ButtonTypes

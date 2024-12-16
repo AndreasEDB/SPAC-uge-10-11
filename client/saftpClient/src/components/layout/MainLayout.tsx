@@ -7,14 +7,13 @@ import NotAuthenticatedLayout from "./auth/NotAuthenticatedLayout"
 import Login from "../../pages/Login"
 
 const MainLayout = ({ children }: { children: ReactNode }) => {
-  const [headerHeight, setHeaderHeight] = useState<number>(16)
+  const [headerHeight, setHeaderHeight] = useState<number>(4)
 
   return (
     <div className="relative">
       <AuthenticatedLayout>
         <Header height={headerHeight} />
-        <div className={`h-${headerHeight}`} />
-        <main>{children}</main>
+        <main style={{ paddingTop: headerHeight + "rem" }}>{children}</main>
         <Sidebar />
         <Modal />
       </AuthenticatedLayout>

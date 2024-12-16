@@ -7,6 +7,7 @@ const BaseButton = ({
   type,
   className,
   square = false,
+  size = "medium",
 }: Button) => {
   let assertedSqaure = false
 
@@ -19,9 +20,12 @@ const BaseButton = ({
   return (
     <button
       className={[
-        "flex align-items-center justify-center rounded-md px-4 py-4 text-white font-semibold",
         className,
         assertedSqaure ? "aspect-square" : "aspect-auto",
+        "flex align-items-center justify-center rounded-md text-white font-semibold",
+        size == "small" ? "py-2" : undefined,
+        size == "medium" ? "py-4" : undefined,
+        size == "large" ? "py-5" : undefined,
       ].join(" ")}
       onClick={onClick}
       type={type}
