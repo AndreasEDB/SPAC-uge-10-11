@@ -13,6 +13,7 @@ from .base_connector import BaseConnector
 class FTPConnector(BaseConnector):
     connection: Connection
     conn: FTP
+    port = 21
 
     def __init__(self, connection: Connection):
         super().__init__(connection)
@@ -28,10 +29,10 @@ class FTPConnector(BaseConnector):
             return False
 
     def connect(self) -> FTP:
-        self.conn = FTP()
-        print(f"Connecting to {self.connection.host} on port {self.connection.port or self.connection.protocol.port}")
+        self.conn = FTP(timeout=5)
+        print(f"Connecting to {self.connection.host} on port {self.connection.port or self.port}")
         try:
-            self.conn.connect(self.connection.host, self.connection.port or self.connection.protocol.port)
+            self.conn.connect(self.connection.host, self.connection.port or self.port)
             if self.connection.username and self.connection.password:
                 self.conn.login(self.connection.username, self.connection.password)
             else:
@@ -43,11 +44,7 @@ class FTPConnector(BaseConnector):
 
         return self.conn
 
-    def send(self, message):
-        self.conn.sendcmd(message)
 
-    def receive(self):
-        return self.conn.getwelcome()
     
     def list_dir(self, path: str) -> List[File]:
         with self.connect() as connector:
@@ -64,3 +61,19 @@ class FTPConnector(BaseConnector):
         files.sort(key=lambda f: f.is_dir, reverse=True)
         
         return files
+    
+    def download(self, path: str) -> bytes:
+        with self.connect() as connector:
+            connector.cwd(os.path.dirname(path))
+            file_name = os.path.basename(path)
+            file_data = bytearray()
+
+            def handle_binary(more_data):
+                file_data.extend(more_data)
+
+            connector.retrbinary(f"RETR {file_name}", handle_binary)
+
+        return bytes(file_data)
+
+    def upload(self, path: str):
+        pass

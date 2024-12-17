@@ -26,8 +26,10 @@ class BaseConnector(ABC):
     def list_dir(self, path: str) -> List[File]:
         pass
 
-    def send(self, message):
+    @abstractmethod
+    def download(self, path: str) -> bytes:
         pass
 
-    def receive(self):
+    @abstractmethod
+    def upload(self, path: str):
         pass

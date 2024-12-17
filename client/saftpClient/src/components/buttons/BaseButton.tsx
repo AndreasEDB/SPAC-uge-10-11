@@ -23,7 +23,7 @@ const BaseButton = ({
       className={[
         className,
         assertedSqaure ? "aspect-square" : "aspect-auto",
-        "flex align-items-center justify-center rounded-md text-white font-semibold",
+        "flex align-items-center justify-center rounded-md font-semibold",
         size == "small" ? "py-2" : undefined,
         size == "medium" ? "py-4" : undefined,
         size == "large" ? "py-5" : undefined,

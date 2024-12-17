@@ -1,7 +1,7 @@
 import { createContext, ReactNode, useEffect, useState } from "react"
 import { ConnectionContextType } from "../interfaces/ConnectionContextType"
 import { Connection } from "../interfaces/Connection"
-import axios from "axios"
+import axios, { AxiosResponse } from "axios"
 import { File as FileType } from "../interfaces/File"
 const { VITE_CONNECTION_URI, VITE_CLIENT_URI } = import.meta.env
 
@@ -23,13 +23,27 @@ const ConnectionContextProvider = ({ children }: { children: ReactNode }) => {
     setConnections(res.data)
   }
 
-  const testConnection = async (connection: Connection): Promise<boolean> => {
-    const res = await axios.post(`${VITE_CONNECTION_URI}/test/`, connection)
-    return res.status === 200
+  const testConnection = async (connection: Connection) => {
+    try {
+      const res: AxiosResponse = await axios.post(
+        `${VITE_CONNECTION_URI}/test/`,
+        connection,
+        {
+          timeout: 5000,
+        }
+      )
+      return res.status === 200
+    } catch (error) {
+      return false
+    }
   }
 
-  const createConnection = (connection: Connection) => {
-    console.log("createConnection")
+  const createConnection = async (connection: Connection) => {
+    const res: AxiosResponse = await axios.post(
+      `${VITE_CONNECTION_URI}/`,
+      connection
+    )
+    return res.status === 200
   }
 
   const deleteConnection = (connection: Connection) => {
@@ -59,6 +73,22 @@ const ConnectionContextProvider = ({ children }: { children: ReactNode }) => {
     }
   }
 
+  const downloadFile = async (path: string[]) => {
+    const res = await axios.get(
+      `${VITE_CLIENT_URI}/file/?path=${path.join("/")}&connection=${
+        connection?.id
+      }`
+    )
+
+    if (res.status !== 200) {
+      const blob = new Blob([res.data])
+      const url = window.URL.createObjectURL(blob)
+
+      return url
+    }
+    return ""
+  }
+
   useEffect(() => {
     getFiles()
   }, [connection, path])
@@ -78,6 +108,7 @@ const ConnectionContextProvider = ({ children }: { children: ReactNode }) => {
         testConnection,
         createConnection,
         deleteConnection,
+        downloadFile,
       }}
     >
       {children}
