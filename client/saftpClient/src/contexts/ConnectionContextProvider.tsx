@@ -77,12 +77,14 @@ const ConnectionContextProvider = ({ children }: { children: ReactNode }) => {
     const res = await axios.get(
       `${VITE_CLIENT_URI}/file/?path=${path.join("/")}&connection=${
         connection?.id
-      }`
+      }`,
+      {
+        responseType: "blob",
+      }
     )
 
-    if (res.status !== 200) {
-      const blob = new Blob([res.data])
-      const url = window.URL.createObjectURL(blob)
+    if (res.status === 200) {
+      const url = window.URL.createObjectURL(res.data)
 
       return url
     }

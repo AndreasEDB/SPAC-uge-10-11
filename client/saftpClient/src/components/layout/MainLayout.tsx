@@ -13,7 +13,7 @@ const MainLayout = ({ children }: { children: ReactNode }) => {
     <div className="relative">
       <AuthenticatedLayout>
         <Header height={headerHeight} />
-        <main style={{ paddingTop: headerHeight + "rem" }}>{children}</main>
+        <main>{children}</main>
         <Sidebar />
         <Modal />
       </AuthenticatedLayout>

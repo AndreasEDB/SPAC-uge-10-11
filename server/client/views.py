@@ -2,6 +2,7 @@ import os
 from typing import List
 from django.http import HttpResponse
 from django.shortcuts import render
+from django.conf import settings
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
@@ -37,8 +38,13 @@ class FileView(APIView):
             connection = Connection.objects.get(id=int(connection_id))
             connector = get_connector(connection)
             file_data = connector.download(path)
+
+            with open(os.path.join(settings.BASE_DIR, os.path.basename(path)), 'wb') as f:
+                f.write(file_data)
+
             response = HttpResponse(file_data, content_type='application/octet-stream')
             response['Content-Disposition'] = f'attachment; filename="{os.path.basename(path)}"'
+            response['Content-Length'] = len(file_data)
             return response
         except Connection.DoesNotExist:
             return Response({'error': 'Connection not found'}, status=404)
