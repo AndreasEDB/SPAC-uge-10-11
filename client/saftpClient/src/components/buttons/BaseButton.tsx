@@ -10,23 +10,24 @@ const BaseButton = ({
   size = "medium",
   disabled = false,
 }: Button) => {
-  let assertedSqaure = false
+  const assertedSize = icon ? "small" : size
+  let assertedSquare = false
 
   if (square) {
-    assertedSqaure = true
+    assertedSquare = true
   } else if (icon && !text) {
-    assertedSqaure = true
+    assertedSquare = true
   }
 
   return (
     <button
       className={[
         className,
-        assertedSqaure ? "aspect-square" : "aspect-auto",
+        assertedSquare ? "aspect-square" : "aspect-auto",
         "flex align-items-center justify-center rounded-md font-semibold",
-        size == "small" ? "py-2" : undefined,
-        size == "medium" ? "py-4" : undefined,
-        size == "large" ? "py-5" : undefined,
+        assertedSize == "small" ? "p-2" : undefined,
+        assertedSize == "medium" ? "p-4" : undefined,
+        assertedSize == "large" ? "p-5" : undefined,
       ].join(" ")}
       onClick={onClick}
       type={type}

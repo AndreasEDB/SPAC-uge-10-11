@@ -3,9 +3,11 @@ import { ConnectionContext } from "../contexts/ConnectionContextProvider"
 import Connection from "../components/Connections/Connection"
 
 const Connections = () => {
-  const { connections, getConnections } = useContext(ConnectionContext)
+  const { connections, getConnections, setPath, setActiveConnection } =
+    useContext(ConnectionContext)
 
   useEffect(() => {
+    setActiveConnection()
     getConnections()
   }, [])
 

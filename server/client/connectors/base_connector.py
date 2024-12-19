@@ -31,5 +31,5 @@ class BaseConnector(ABC):
         pass
 
     @abstractmethod
-    def upload(self, path: str):
+    def upload_file(self, path: str, file_data: bytes) -> bool:
         pass

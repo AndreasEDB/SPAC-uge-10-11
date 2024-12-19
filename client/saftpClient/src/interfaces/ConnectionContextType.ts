@@ -4,12 +4,14 @@ import { File as FileType } from "./File"
 export interface ConnectionContextType {
   connections: Connection[]
   connection: Connection | null
-  setActiveConnection: (id: number) => void
+  setActiveConnection: (id?: number) => void
   path: string[]
   setPath: (path: string[]) => void
   getPathString: () => string
   files: FileType[]
   getFiles: () => void
+  getEditableFile: (path: string[]) => Promise<string | null>
+  saveEditableFile: (file: FileType) => Promise<boolean>
   getConnections: () => void
   testConnection: (connection: Connection) => Promise<boolean>
   createConnection: (connection: Connection) => Promise<boolean>

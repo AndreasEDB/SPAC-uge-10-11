@@ -2,14 +2,21 @@ import DataTable, { TableColumn } from "react-data-table-component"
 import { File as FileType } from "../../interfaces/File"
 import { createElement, useContext, useEffect, useRef, useState } from "react"
 import { ConnectionContext } from "../../contexts/ConnectionContextProvider"
-import { MdOutlineFileDownload, MdOutlineFolder } from "react-icons/md"
+import {
+  MdModeEdit,
+  MdOutlineFileDownload,
+  MdOutlineFolder,
+} from "react-icons/md"
 import { formatFileSize } from "../../assets/ts/fileHelper"
 import BaseButton from "../buttons/BaseButton"
 import ButtonTypes from "../../interfaces/ButtonTypes"
+import { SidebarContext } from "../../contexts/SidebarContextProvider"
+import EditFile from "../sidebar/sidebarComponents/EditFile"
 
 const DirListTable = () => {
   const { files, setFiles, getFiles, path, setPath, downloadFile } =
     useContext(ConnectionContext)
+  const { setSidebarComponent } = useContext(SidebarContext)
   const downloadRef = useRef<HTMLAnchorElement | null>(null)
 
   const [tableFiles, setTableFiles] = useState<FileType[]>([])
@@ -36,13 +43,13 @@ const DirListTable = () => {
 
   const columns: TableColumn<FileType>[] = [
     {
-      cell: (row) => (row.is_dir ? <MdOutlineFolder /> : ""),
+      cell: row => (row.is_dir ? <MdOutlineFolder /> : ""),
       sortable: true,
       width: "3rem",
     },
     {
       name: "Filename",
-      cell: (row) => (
+      cell: row => (
         <span className={row.is_dir ? "font-bold" : undefined}>
           {row.file_name}
         </span>
@@ -51,25 +58,45 @@ const DirListTable = () => {
     },
     {
       name: "Size",
-      selector: (row) => formatFileSize(row.file_size),
+      selector: row => formatFileSize(row.file_size),
       sortable: true,
       sortFunction: sortByFileSize,
     },
     {
       name: "Modified",
-      selector: (row) => row.last_modified.toString(),
+      selector: row => row.last_modified.toString(),
       sortable: true,
     },
     {
-      cell: (row) =>
+      cell: row =>
         !row.is_dir && (
           <BaseButton
-            {...ButtonTypes.Ok(() => handleRowClick(row))}
+            {...ButtonTypes.Download(() => download(row))}
             text=""
             icon={() => <MdOutlineFileDownload height={"100%"} />}
           />
         ),
       right: true,
+      width: "3rem",
+    },
+    {
+      cell: (row: FileType) =>
+        row.editable && (
+          <BaseButton
+            {...ButtonTypes.Edit(() =>
+              setSidebarComponent(
+                <EditFile
+                  path={path}
+                  file={row}
+                />
+              )
+            )}
+            text=""
+            icon={() => <MdModeEdit height={"100%"} />}
+          />
+        ),
+      right: true,
+      width: "3rem",
     },
   ]
 
@@ -93,11 +120,12 @@ const DirListTable = () => {
       <DataTable
         columns={columns}
         data={tableFiles}
+        dense
         onRowClicked={handleRowClick}
         onSort={(_, __, sortedRows) =>
           setTableFiles([
-            ...sortedRows.filter((row) => row.is_dir),
-            ...sortedRows.filter((row) => !row.is_dir),
+            ...sortedRows.filter(row => row.is_dir),
+            ...sortedRows.filter(row => !row.is_dir),
           ])
         }
       />

@@ -3,4 +3,5 @@ export interface File {
   file_size: number
   last_modified: Date
   is_dir: boolean
+  editable: boolean
 }

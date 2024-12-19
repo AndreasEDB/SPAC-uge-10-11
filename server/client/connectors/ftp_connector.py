@@ -75,5 +75,16 @@ class FTPConnector(BaseConnector):
 
         return bytes(file_data)
 
-    def upload(self, path: str):
-        pass
+    def upload_file(self, path: str, file_data: bytes):
+        try:
+            with self.connect() as connector:
+                connector.cwd(os.path.dirname(path))
+                file_name = os.path.basename(path)
+                from io import BytesIO
+                connector.storbinary(f"STOR {file_name}", BytesIO(file_data))
+                return True
+        except Exception as e:
+            print(f"Failed to upload file: {e}")
+            return False
+
+    

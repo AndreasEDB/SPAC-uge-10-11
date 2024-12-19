@@ -50,9 +50,13 @@ const ConnectionContextProvider = ({ children }: { children: ReactNode }) => {
     console.log("deleteConnection")
   }
 
-  const setActiveConnection = async (id: number) => {
-    const res = await axios.get(`${VITE_CONNECTION_URI}/${id}`)
-    setConnection(res.data)
+  const setActiveConnection = async (id?: number) => {
+    if (id) {
+      const res = await axios.get(`${VITE_CONNECTION_URI}/${id}`)
+      setConnection(res.data)
+    } else {
+      setConnection(null)
+    }
   }
 
   const getFiles = async () => {
@@ -91,9 +95,36 @@ const ConnectionContextProvider = ({ children }: { children: ReactNode }) => {
     return ""
   }
 
+  const getEditableFile = async (path: string[]) => {
+    const res = await axios.get(
+      `${VITE_CLIENT_URI}/file/edit/?path=${path.join("/")}&connection=${
+        connection?.id
+      }`
+    )
+    if (res.status === 200) {
+      return res.data
+    }
+    return null
+  }
+
+  const saveEditableFile = async (file: FileType) => {
+    const res = await axios.post(`${VITE_CLIENT_URI}/file/edit/`, {
+      connection: connection?.id,
+    })
+
+    return res.status === 200
+  }
+
   useEffect(() => {
-    getFiles()
-  }, [connection, path])
+    if (connection) getFiles()
+    else {
+      setFiles([])
+    }
+  }, [connection])
+
+  useEffect(() => {
+    if (connection) getFiles()
+  }, [path])
 
   return (
     <ConnectionContext.Provider
@@ -105,6 +136,8 @@ const ConnectionContextProvider = ({ children }: { children: ReactNode }) => {
         getPathString,
         files,
         getFiles,
+        getEditableFile,
+        saveEditableFile,
         setActiveConnection,
         getConnections,
         testConnection,

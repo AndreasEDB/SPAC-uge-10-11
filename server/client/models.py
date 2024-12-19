@@ -16,3 +16,7 @@ class File(models.Model):
         super().__init__(*args, **kwargs)
         if self.file_size is None:
             raise ValueError('file_size cannot be None')
+
+
+class BinaryExtension(models.Model):
+    extension = models.CharField(max_length=10, unique=True)

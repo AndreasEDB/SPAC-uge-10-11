@@ -1,6 +1,7 @@
+import { on } from "events"
 import Button from "./Button"
 
-let baseStyle: string = "font-bold px-4 rounded"
+let baseStyle: string = "font-bold rounded"
 
 const whiteButton = (props: Button): Button => {
   return {
@@ -164,6 +165,27 @@ const testButton = (
   })
 }
 
+const downloadButton = (
+  onCLick?: () => void | {},
+  disabled: boolean = false
+): Button => {
+  return whiteButton({
+    text: "Download",
+    onClick: onCLick,
+    type: "button",
+    disabled,
+  })
+}
+
+const editButton = (onClick?: () => void | {}, disabled: boolean = false) => {
+  return whiteButton({
+    text: "Edit",
+    onClick: onClick,
+    type: "button",
+    disabled,
+  })
+}
+
 const ButtonTypes = {
   Ok: okButton,
   Cancel: cancelButton,
@@ -175,6 +197,8 @@ const ButtonTypes = {
   Logout: logoutButton,
   Connect: connectButton,
   Test: testButton,
+  Download: downloadButton,
+  Edit: editButton,
 }
 
 export default ButtonTypes
