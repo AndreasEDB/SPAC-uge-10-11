@@ -41,12 +41,7 @@ const Connection = ({
           <h3 className="text-xl font-semibold">
             {connection?.name ?? "Add connection"}
           </h3>
-          {connection !== undefined && (
-            <em>
-              {connection.host}:
-              {connection.port ?? (connection.protocol as Protocol).port}
-            </em>
-          )}
+          {connection !== undefined && <em>{connection.host}</em>}
           <ButtonArea buttons={buttons} />
         </div>
       </article>

@@ -5,7 +5,7 @@ import Overlay from "../Overlay"
 import SidebarContextType from "../../interfaces/SidebarContextType"
 
 const Sidebar = () => {
-  const { sidebarComponent, sidebarTitle, closeSidebar } =
+  const { sidebarComponent, sidebarTitle, closeSidebar, wide } =
     useContext<SidebarContextType>(SidebarContext)
 
   return (
@@ -16,7 +16,8 @@ const Sidebar = () => {
       />
       <aside
         className={[
-          "fixed top-0 bottom-0 w-[35rem] max-w-full bg-white shadow-2xl right-0 transition-transform duration-300 h-dvh pb-10",
+          "fixed top-0 bottom-0 max-w-full bg-white shadow-2xl right-0 transition-transform duration-300 h-dvh pb-10",
+          wide ? "w-[70rem]" : "w-[35rem]",
           sidebarComponent ? "translate-x-0" : "translate-x-full",
         ].join(" ")}
       >

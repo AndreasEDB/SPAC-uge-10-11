@@ -11,7 +11,7 @@ export interface ConnectionContextType {
   files: FileType[]
   getFiles: () => void
   getEditableFile: (path: string[]) => Promise<string | null>
-  saveEditableFile: (file: FileType) => Promise<boolean>
+  saveEditableFile: (path: string[], content: string) => Promise<boolean>
   getConnections: () => void
   testConnection: (connection: Connection) => Promise<boolean>
   createConnection: (connection: Connection) => Promise<boolean>

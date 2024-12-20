@@ -107,10 +107,15 @@ const ConnectionContextProvider = ({ children }: { children: ReactNode }) => {
     return null
   }
 
-  const saveEditableFile = async (file: FileType) => {
-    const res = await axios.post(`${VITE_CLIENT_URI}/file/edit/`, {
-      connection: connection?.id,
-    })
+  const saveEditableFile = async (path: string[], content: string) => {
+    const res = await axios.put(
+      `${VITE_CLIENT_URI}/file/edit/?path=${path.join("/")}&connection=${
+        connection?.id
+      }`,
+      {
+        content,
+      }
+    )
 
     return res.status === 200
   }

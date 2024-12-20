@@ -3,5 +3,7 @@ export default interface SidebarContextType {
   setSidebarComponent: (component: JSX.Element) => void
   sidebarTitle: string | null
   setSidebarTitle: (title: string) => void
+  wide?: boolean
+  setWide: (wide: boolean) => void
   closeSidebar: () => void
 }

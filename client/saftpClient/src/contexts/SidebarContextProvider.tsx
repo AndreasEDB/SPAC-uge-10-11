@@ -10,10 +10,12 @@ const SidebarContextProvider = ({ children }: { children: JSX.Element }) => {
     null
   )
   const [sidebarTitle, setSidebarTitle] = useState<string | null>(null)
+  const [wide, setWide] = useState<boolean>(false)
 
   const closeSidebar = () => {
     setSidebarComponent(null)
     setSidebarTitle(null)
+    setWide(false)
   }
 
   return (
@@ -23,6 +25,8 @@ const SidebarContextProvider = ({ children }: { children: JSX.Element }) => {
         setSidebarComponent,
         sidebarTitle,
         setSidebarTitle,
+        wide,
+        setWide,
         closeSidebar,
       }}
     >
